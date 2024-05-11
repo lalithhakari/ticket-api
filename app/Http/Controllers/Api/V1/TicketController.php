@@ -24,14 +24,7 @@ class TicketController extends Controller
      */
     public function store(StoreTicketRequest $request)
     {
-        $data = [
-            'user_id'        => $request->input('data.relationships.data.author.id'),
-            'title'         => $request->input('data.attributes.title'),
-            'description'   => $request->input('data.attributes.description'),
-            'status'        => $request->input('data.attributes.status'),
-        ];
-
-        return new TicketResource(Ticket::create($data));
+        return new TicketResource(Ticket::create($request->mappedData()));
     }
 
     /**

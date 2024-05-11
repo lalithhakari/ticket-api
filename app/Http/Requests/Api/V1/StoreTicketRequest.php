@@ -40,4 +40,14 @@ class StoreTicketRequest extends FormRequest
             'data.attributes.status'        => 'data.attributes.status is invalid. Please use A,C,H,X',
         ];
     }
+
+    public function mappedData()
+    {
+        return [
+            'user_id'       => $this->input('data.relationships.data.author.id'),
+            'title'         => $this->input('data.attributes.title'),
+            'description'   => $this->input('data.attributes.description'),
+            'status'        => $this->input('data.attributes.status'),
+        ];
+    }
 }
