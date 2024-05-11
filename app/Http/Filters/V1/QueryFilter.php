@@ -22,9 +22,9 @@ abstract class QueryFilter
         return $this->builder;
     }
 
-    protected function filter($arr)
+    protected function filter($filterArr)
     {
-        foreach ($arr as $key => $value) {
+        foreach ($filterArr as $key => $value) {
             if (method_exists($this, $key)) {
                 $this->$key($value);
             }

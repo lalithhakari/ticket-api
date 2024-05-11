@@ -29,9 +29,9 @@ class TicketFilter extends QueryFilter
         return $this->builder->with($value);
     }
 
-    public function status($value)
+    public function status($values)
     {
-        return $this->builder->whereIn('status', explode(',', $value));
+        return $this->builder->whereIn('status', explode(',', $values));
     }
 
     public function title($value)

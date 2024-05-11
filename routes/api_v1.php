@@ -6,9 +6,7 @@ use App\Http\Controllers\Api\V1\AuthorTicketController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-// Route::get('/user', function (Request $request) {
-//     return $request->user();
-// })->middleware('auth:sanctum');
+// localhost/api/tickets?filter[status]=X,C&filter[title]=*velit*&include=author&sort=-createdAt
 
 Route::apiResource('tickets', TicketController::class);
 Route::apiResource('authors', AuthorController::class);
