@@ -12,7 +12,7 @@ abstract class Controller
         $cookie = cookie(
             name: config('session.cookie'),
             value: $token,
-            minutes: config('system.cookie_expiry'),
+            minutes: config('system.auth_cookie_expiry'),
             httpOnly: false,
             secure: false,
             domain: config('session.domain'),
