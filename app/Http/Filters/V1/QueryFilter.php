@@ -9,7 +9,7 @@ abstract class QueryFilter
 {
     protected $builder;
 
-    public function apply(Builder $builder)
+    public function apply(Builder $builder): Builder
     {
         $this->builder = $builder;
 
@@ -22,7 +22,7 @@ abstract class QueryFilter
         return $this->builder;
     }
 
-    protected function filter($filterArr)
+    protected function filter(array $filterArr = []): Builder
     {
         foreach ($filterArr as $key => $value) {
             if (method_exists($this, $key)) {
@@ -33,7 +33,7 @@ abstract class QueryFilter
         return $this->builder;
     }
 
-    protected function sort($values)
+    protected function sort(string $values = ''): Builder
     {
         $sortables = explode(',', $values);
 
