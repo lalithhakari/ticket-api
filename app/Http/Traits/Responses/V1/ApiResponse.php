@@ -123,4 +123,14 @@ trait ApiResponse
             'data' => (object) [],
         ], Response::HTTP_UNAUTHORIZED);
     }
+
+    public static function httpUnauthorized(): JsonResponse
+    {
+        return response()->json([
+            'status' => 'error',
+            'message' => 'Unauthorized',
+            'errors' => (object) [],
+            'data' => (object) [],
+        ], Response::HTTP_FORBIDDEN);
+    }
 }

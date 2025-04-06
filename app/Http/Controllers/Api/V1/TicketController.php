@@ -9,10 +9,18 @@ use App\Http\Requests\Api\V1\Tickets\StoreTicketRequest;
 use App\Http\Requests\Api\V1\Tickets\UpdateTicketRequest;
 use App\Http\Resources\V1\TicketResource;
 use App\Models\Ticket;
+use App\Policies\V1\Tickets\TicketPolicy;
 use Illuminate\Http\Request;
 
 class TicketController extends Controller
 {
+    /**
+     * The V1 policy class for the resource.
+     *
+     * @var string
+     */
+    protected $policyClass = TicketPolicy::class;
+
     /**
      * Display a listing of the resource.
      */
@@ -42,8 +50,11 @@ class TicketController extends Controller
      */
     public function update(UpdateTicketRequest $request, Ticket $ticket)
     {
+        $this->isAble('update', $ticket);
+
         $ticket->update($request->mappedData());
         $ticket->fresh();
+
         return new TicketResource($ticket);
     }
 
@@ -52,8 +63,11 @@ class TicketController extends Controller
      */
     public function replace(ReplaceTicketRequest $request, Ticket $ticket)
     {
+        $this->isAble('replace', $ticket);
+
         $ticket->update($request->mappedData());
         $ticket->fresh();
+
         return new TicketResource($ticket);
     }
 
@@ -62,9 +76,7 @@ class TicketController extends Controller
      */
     public function destroy(Request $request, Ticket $ticket)
     {
-        if ($ticket->user_id !== $request->user()->id) {
-            return $this->errorResponse(message: 'You are not authorized to delete this ticket');
-        }
+        $this->isAble('destroy', $ticket);
 
         $ticket->delete();
 

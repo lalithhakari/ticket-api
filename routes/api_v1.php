@@ -6,8 +6,6 @@ use App\Http\Controllers\Api\V1\AuthorController;
 use App\Http\Controllers\Api\V1\AuthorTicketController;
 use Illuminate\Support\Facades\Route;
 
-// localhost/api/v1/tickets?filter[status]=X,C&filter[title]=*velit*&include=author&sort=-createdAt
-
 Route::prefix('v1')->group(function () {
     Route::post('/register', [AuthController::class, 'register']);
     Route::post('/login', [AuthController::class, 'login']);
@@ -19,7 +17,7 @@ Route::prefix('v1')->group(function () {
 
         Route::apiResource('authors', AuthorController::class);
 
-        Route::apiResource('authors.tickets', AuthorTicketController::class)->scoped();
+        Route::apiResource('authors.tickets', AuthorTicketController::class);
         Route::put('/authors/{author}/tickets/{ticket}', [AuthorTicketController::class, 'replace'])->name('authors.tickets.replace');
     });
 });
