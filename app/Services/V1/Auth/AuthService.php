@@ -23,6 +23,7 @@ class AuthService
 
         $token = (new TokenService())->createToken(user: $user);
 
+        // TODO move to job
         // Mail::to($user)->send(new WelcomeMail($user));
 
         return [$user, $token];
