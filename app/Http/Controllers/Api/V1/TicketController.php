@@ -48,6 +48,9 @@ class TicketController extends ApiController
      */
     public function show(Ticket $ticket)
     {
+        if ($this->includes('author')) {
+            $ticket->load('author');
+        }
         return new TicketResource($ticket);
     }
 
@@ -61,6 +64,10 @@ class TicketController extends ApiController
         $ticket->update($request->mappedData());
         $ticket->fresh();
 
+        if ($this->includes('author')) {
+            $ticket->load('author');
+        }
+
         return new TicketResource($ticket);
     }
 
@@ -73,6 +80,10 @@ class TicketController extends ApiController
 
         $ticket->update($request->mappedData());
         $ticket->fresh();
+
+        if ($this->includes('author')) {
+            $ticket->load('author');
+        }
 
         return new TicketResource($ticket);
     }
