@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Api\V1;
 
-use App\Http\Controllers\Api\V1\Controller;
+use App\Http\Controllers\Api\V1\ApiController;
 use App\Http\Filters\V1\TicketFilter;
 use App\Http\Requests\Api\V1\Tickets\ReplaceTicketRequest;
 use App\Http\Requests\Api\V1\Tickets\StoreTicketRequest;
@@ -11,8 +11,9 @@ use App\Http\Resources\V1\TicketResource;
 use App\Models\Ticket;
 use App\Policies\V1\Tickets\TicketPolicy;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
-class TicketController extends Controller
+class TicketController extends ApiController
 {
     /**
      * The V1 policy class for the resource.
@@ -20,6 +21,11 @@ class TicketController extends Controller
      * @var string
      */
     protected $policyClass = TicketPolicy::class;
+
+    public function __construct()
+    {
+        Gate::policy(Ticket::class, $this->policyClass);
+    }
 
     /**
      * Display a listing of the resource.

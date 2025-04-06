@@ -17,7 +17,10 @@ class TicketPolicy
 
     public function update(User $user, Ticket $ticket): bool
     {
-        // TODO can add token level permissions here, like: $user->tokenCan('ticket.update')
+        // TODO token level permissions
+        // if($user->tokenCan('ticket.update')) {
+        //     return true;
+        // }
         return $user->id === $ticket->user_id;
     }
 

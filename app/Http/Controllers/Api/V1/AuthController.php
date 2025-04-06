@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Api\V1;
 
-use App\Http\Controllers\Api\V1\Controller;
+use App\Http\Controllers\Api\V1\ApiController;
 use App\Http\Requests\Api\V1\Auth\UserLoginRequest;
 use App\Http\Requests\Api\V1\Auth\UserRegisterRequest;
 use App\Services\V1\Auth\AuthService;
@@ -12,7 +12,7 @@ use Illuminate\Http\Request;
 use InvalidArgumentException;
 use Throwable;
 
-class AuthController extends Controller
+class AuthController extends ApiController
 {
     public function register(UserRegisterRequest $request, AuthService $authService): JsonResponse
     {

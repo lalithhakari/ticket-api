@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Api\V1;
 
-use App\Http\Controllers\Api\V1\Controller;
+use App\Http\Controllers\Api\V1\ApiController;
 use App\Http\Filters\V1\TicketFilter;
 use App\Http\Requests\Api\V1\Tickets\ReplaceTicketRequest;
 use App\Http\Requests\Api\V1\Tickets\StoreTicketRequest;
@@ -12,7 +12,7 @@ use App\Models\Ticket;
 use App\Models\User;
 use Illuminate\Http\Request;
 
-class AuthorTicketController extends Controller
+class AuthorTicketController extends ApiController
 {
     /**
      * Display a listing of the resource.
