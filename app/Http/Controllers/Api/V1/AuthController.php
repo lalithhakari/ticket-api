@@ -23,7 +23,7 @@ class AuthController extends Controller
                 password: $request->get('password'),
             );
 
-            return $this->loginResponse('Registration successful', [
+            return $this->loginResponse('Registered successfully', [
                 'user' => $user,
                 'token' => $token,
             ], $token);
@@ -42,12 +42,12 @@ class AuthController extends Controller
                 password: $request->get('password'),
             );
 
-            return $this->loginResponse('Login successful', [
+            return $this->loginResponse('Logged in successfully', [
                 'user' => $user,
                 'token' => $token,
             ], $token);
         } catch (InvalidArgumentException $e) {
-            return $this->validationErrorResponse($e->getMessage());
+            return $this->errorResponse($e->getMessage());
         } catch (Throwable $th) {
             return $this->invalidRequestResponse();
         }
@@ -58,7 +58,7 @@ class AuthController extends Controller
         try {
             $tokenService->deleteToken($request->user());
 
-            return $this->logoutResponse('Logout successful');
+            return $this->logoutResponse('Logged out successfully');
         } catch (Throwable $th) {
             return $this->invalidRequestResponse();
         }

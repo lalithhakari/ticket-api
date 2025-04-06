@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\Api\V1\Tickets;
 
-class StoreTicketRequest extends BaseTicketRequest
+class UpdateTicketRequest extends BaseTicketRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -20,14 +20,11 @@ class StoreTicketRequest extends BaseTicketRequest
     public function rules(): array
     {
         $rules = [
-            'data.attributes.title'         => 'required|string',
-            'data.attributes.description'   => 'required|string',
-            'data.attributes.status'        => 'required|string|in:A,C,H,X',
+            'data.attributes.title'         => 'sometimes|string',
+            'data.attributes.description'   => 'sometimes|string',
+            'data.attributes.status'        => 'sometimes|string|in:A,C,H,X',
+            'data.relationships.data.author.id' => 'sometimes|integer|exists:users,id'
         ];
-
-        if ($this->routeIs('ticket.store')) {
-            $rules['data.relationships.data.author.id'] = 'required|integer|exists:users,id';
-        }
 
         return $rules;
     }

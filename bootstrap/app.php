@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Exceptions\V1\ApiException;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -15,5 +16,5 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->statefulApi();
     })
     ->withExceptions(function (Exceptions $exceptions) {
-        //
+        ApiException::handle($exceptions);
     })->create();

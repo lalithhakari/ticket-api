@@ -19,7 +19,10 @@ class TicketResource extends JsonResource
             'id' => $this->id,
             'attributes' => [
                 'title' => $this->title,
-                'description' => $this->when($request->routeIs('tickets.show'), $this->description),
+                'description' => $this->when(
+                    $request->routeIs('tickets.show') || $request->routeIs('tickets.update') || $request->routeIs('tickets.replace'),
+                    $this->description
+                ),
                 'status' => $this->status,
                 'createdAt' => $this->created_at,
                 'updatedAt' => $this->updated_at,

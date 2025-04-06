@@ -4,9 +4,12 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Api\V1\Controller;
 use App\Http\Filters\V1\TicketFilter;
+use App\Http\Requests\Api\V1\Tickets\ReplaceTicketRequest;
 use App\Http\Requests\Api\V1\Tickets\StoreTicketRequest;
+use App\Http\Requests\Api\V1\Tickets\UpdateTicketRequest;
 use App\Http\Resources\V1\TicketResource;
 use App\Models\Ticket;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class AuthorTicketController extends Controller
@@ -14,49 +17,60 @@ class AuthorTicketController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index($authorId, TicketFilter $filter)
+    public function index(User $author, TicketFilter $filter)
     {
         return TicketResource::collection(
-            Ticket::where('user_id', $authorId)->filter($filter)->paginate()
+            Ticket::where('user_id', $author->id)->filter($filter)->paginate()
         );
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreTicketRequest $request, $authorId)
+    public function store(StoreTicketRequest $request, User $author)
     {
-        $data = [
-            'user_id'       => $authorId,
-            'title'         => $request->input('data.attributes.title'),
-            'description'   => $request->input('data.attributes.description'),
-            'status'        => $request->input('data.attributes.status'),
-        ];
-
-        return new TicketResource(Ticket::create($data));
+        return new TicketResource(Ticket::create($request->mappedData()));
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Request $request, User $author, Ticket $ticket)
     {
-        //
+        return new TicketResource($ticket);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateTicketRequest $request, User $author, Ticket $ticket)
     {
-        //
+        $ticket->update($request->mappedData());
+        $ticket->fresh();
+        return new TicketResource($ticket);
+    }
+
+    /**
+     * Replace the specified resource in storage.
+     */
+    public function replace(ReplaceTicketRequest $request, User $author, Ticket $ticket)
+    {
+        $ticket->update($request->mappedData());
+        $ticket->fresh();
+        return new TicketResource($ticket);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Request $request, User $author, Ticket $ticket)
     {
-        //
+        if (($ticket->user_id !== $author->id)  || ($author->id !== $request->user()->id)) {
+            return $this->errorResponse(message: 'You are not authorized to delete this ticket');
+        }
+
+        $ticket->delete();
+
+        return $this->successResponse(message: 'Ticket deleted successfully');
     }
 }

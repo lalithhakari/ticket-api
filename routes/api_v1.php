@@ -15,7 +15,11 @@ Route::prefix('v1')->group(function () {
 
     Route::middleware('auth:sanctum')->group(function () {
         Route::apiResource('tickets', TicketController::class);
+        Route::put('/tickets/{ticket}', [TicketController::class, 'replace'])->name('tickets.replace');
+
         Route::apiResource('authors', AuthorController::class);
-        Route::apiResource('authors.tickets', AuthorTicketController::class);
+
+        Route::apiResource('authors.tickets', AuthorTicketController::class)->scoped();
+        Route::put('/authors/{author}/tickets/{ticket}', [AuthorTicketController::class, 'replace'])->name('authors.tickets.replace');
     });
 });
