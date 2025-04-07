@@ -43,7 +43,7 @@ expect()->extend('toBeOne', function () {
 |
 */
 
-function actingAsUser($user = null)
+function actingAsApiUser($user = null)
 {
     $user = $user ?: User::factory()->create();
 

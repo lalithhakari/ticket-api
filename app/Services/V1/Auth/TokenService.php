@@ -18,8 +18,8 @@ class TokenService
         return $token;
     }
 
-    public function deleteToken(User $user): void
+    public function deleteCurrentToken(User $user): void
     {
-        $user->currentAccessToken()->delete();
+        $user->currentAccessToken()?->delete();
     }
 }
