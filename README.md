@@ -34,6 +34,15 @@ sail artisan migrate:fresh --seed
 
 This will spin up your Docker containers and prepare the database with sample data.
 
+### Test Suite Instructions
+
+```bash
+sail pest
+sail pest --coverage
+```
+
+and other standard commands of pest
+
 🧠 Why This Project Stands Out
 
 This project is designed to reflect real-world API architecture using Laravel 12:
