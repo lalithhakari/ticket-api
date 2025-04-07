@@ -131,7 +131,7 @@ test('user can delete a ticket', function () {
 
     $response->assertStatus(200)
         ->assertJsonStructure([
-            'message'
+            'message',
         ])
         ->assertJsonFragment([
             'status' => 'success',
@@ -183,7 +183,7 @@ test('user can view all tickets', function () {
     $response->assertStatus(200)
         ->assertJsonStructure([
             'data' => [
-                'tickets'
+                'tickets',
             ],
         ])
         ->assertJsonFragment([
@@ -213,7 +213,7 @@ test('user can view tickets with status filters', function () {
     $response->assertStatus(200)
         ->assertJsonStructure([
             'data' => [
-                'tickets'
+                'tickets',
             ],
         ])
         ->assertJsonFragment([
@@ -250,9 +250,9 @@ test('user can view tickets with include filters', function () {
                             '*' => [
                                 'type' => 'user',
                                 'id' => $user->id,
-                            ]
-                        ]
-                    ]
+                            ],
+                        ],
+                    ],
                 ],
             ],
         ])
