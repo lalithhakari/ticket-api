@@ -25,7 +25,7 @@ class StoreTicketRequest extends BaseTicketRequest
             'data.attributes.status' => 'required|string|in:A,C,H,X',
         ];
 
-        if ($this->routeIs('v1.ticket.store')) {
+        if ($this->routeIs('api.v1.ticket.store') || $this->routeIs('api.v1.authors.tickets.store')) {
             $rules['data.relationships.data.author.id'] = 'required|integer|exists:users,id';
         }
 

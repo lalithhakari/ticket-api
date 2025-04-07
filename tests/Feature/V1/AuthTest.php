@@ -6,7 +6,7 @@ test('user can register', function () {
         'email' => fake()->safeEmail(),
         'password' => 'password',
     ];
-    $response = $this->postJson(route('v1.register'), $payload);
+    $response = $this->postJson(route('api.v1.register'), $payload);
 
     $response->assertStatus(200)
         ->assertCookie(config('session.cookie'))
@@ -17,8 +17,8 @@ test('user can register', function () {
             ],
         ])
         ->assertJsonFragment([
-            'status'    => 'success',
-            'name'      => $payload['name'],
-            'email'     => $payload['email'],
+            'status' => 'success',
+            'name' => $payload['name'],
+            'email' => $payload['email'],
         ]);
 });

@@ -18,10 +18,10 @@ class AuthService
             'password' => $password,
         ]);
 
-        //TODO move to model observers
+        // TODO move to model observers
         // $user->notificationSetting()->create();
 
-        $token = (new TokenService())->createToken(user: $user);
+        $token = (new TokenService)->createToken(user: $user);
 
         // TODO move to job
         // Mail::to($user)->send(new WelcomeMail($user));
@@ -39,7 +39,7 @@ class AuthService
             throw new InvalidArgumentException('Invalid credentials');
         }
 
-        $token = (new TokenService())->createToken(user: $user);
+        $token = (new TokenService)->createToken(user: $user);
 
         return [$user, $token];
     }
