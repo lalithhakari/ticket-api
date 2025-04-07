@@ -20,10 +20,10 @@ class ReplaceTicketRequest extends BaseTicketRequest
     public function rules(): array
     {
         $rules = [
-            'data.attributes.title'         => 'required|string',
-            'data.attributes.description'   => 'required|string',
-            'data.attributes.status'        => 'required|string|in:A,C,H,X',
-            'data.relationships.data.author.id' => 'required|integer|exists:users,id'
+            'data.attributes.title' => 'required|string',
+            'data.attributes.description' => 'required|string',
+            'data.attributes.status' => 'required|string|in:A,C,H,X',
+            'data.relationships.data.author.id' => 'required|integer|exists:users,id',
         ];
 
         return $rules;

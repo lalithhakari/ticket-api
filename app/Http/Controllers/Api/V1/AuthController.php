@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Api\V1;
 
-use App\Http\Controllers\Api\V1\ApiController;
 use App\Http\Requests\Api\V1\Auth\UserLoginRequest;
 use App\Http\Requests\Api\V1\Auth\UserRegisterRequest;
 use App\Services\V1\Auth\AuthService;

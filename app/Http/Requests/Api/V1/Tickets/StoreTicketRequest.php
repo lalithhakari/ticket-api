@@ -20,12 +20,12 @@ class StoreTicketRequest extends BaseTicketRequest
     public function rules(): array
     {
         $rules = [
-            'data.attributes.title'         => 'required|string',
-            'data.attributes.description'   => 'required|string',
-            'data.attributes.status'        => 'required|string|in:A,C,H,X',
+            'data.attributes.title' => 'required|string',
+            'data.attributes.description' => 'required|string',
+            'data.attributes.status' => 'required|string|in:A,C,H,X',
         ];
 
-        if ($this->routeIs('ticket.store')) {
+        if ($this->routeIs('v1.ticket.store')) {
             $rules['data.relationships.data.author.id'] = 'required|integer|exists:users,id';
         }
 

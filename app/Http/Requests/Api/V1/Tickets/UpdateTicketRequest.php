@@ -20,10 +20,10 @@ class UpdateTicketRequest extends BaseTicketRequest
     public function rules(): array
     {
         $rules = [
-            'data.attributes.title'         => 'sometimes|string',
-            'data.attributes.description'   => 'sometimes|string',
-            'data.attributes.status'        => 'sometimes|string|in:A,C,H,X',
-            'data.relationships.data.author.id' => 'sometimes|integer|exists:users,id'
+            'data.attributes.title' => 'sometimes|string',
+            'data.attributes.description' => 'sometimes|string',
+            'data.attributes.status' => 'sometimes|string|in:A,C,H,X',
+            'data.relationships.data.author.id' => 'sometimes|integer|exists:users,id',
         ];
 
         return $rules;

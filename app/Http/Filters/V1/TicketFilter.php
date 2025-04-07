@@ -10,7 +10,7 @@ class TicketFilter extends QueryFilter
         'title',
         'status',
         'created_at',
-        'updated_at'
+        'updated_at',
     ];
 
     public function createdAt($value)
@@ -37,6 +37,7 @@ class TicketFilter extends QueryFilter
     public function title($value)
     {
         $likeStr = Str::replace('*', '%', $value);
+
         return $this->builder->where('title', 'like', $likeStr);
     }
 

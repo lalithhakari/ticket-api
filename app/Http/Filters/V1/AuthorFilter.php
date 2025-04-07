@@ -10,7 +10,7 @@ class AuthorFilter extends QueryFilter
         'name',
         'email',
         'created_at',
-        'updated_at'
+        'updated_at',
     ];
 
     public function createdAt($value)
@@ -37,12 +37,14 @@ class AuthorFilter extends QueryFilter
     public function email($value)
     {
         $likeStr = Str::replace('*', '%', $value);
+
         return $this->builder->where('email', 'like', $likeStr);
     }
 
     public function name($value)
     {
         $likeStr = Str::replace('*', '%', $value);
+
         return $this->builder->where('name', 'like', $likeStr);
     }
 

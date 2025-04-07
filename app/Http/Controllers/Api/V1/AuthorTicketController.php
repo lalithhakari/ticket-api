@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Api\V1;
 
-use App\Http\Controllers\Api\V1\ApiController;
 use App\Http\Filters\V1\TicketFilter;
 use App\Http\Requests\Api\V1\Tickets\ReplaceTicketRequest;
 use App\Http\Requests\Api\V1\Tickets\StoreTicketRequest;
@@ -47,6 +46,7 @@ class AuthorTicketController extends ApiController
     {
         $ticket->update($request->mappedData());
         $ticket->fresh();
+
         return new TicketResource($ticket);
     }
 
@@ -57,6 +57,7 @@ class AuthorTicketController extends ApiController
     {
         $ticket->update($request->mappedData());
         $ticket->fresh();
+
         return new TicketResource($ticket);
     }
 
@@ -65,7 +66,7 @@ class AuthorTicketController extends ApiController
      */
     public function destroy(Request $request, User $author, Ticket $ticket)
     {
-        if (($ticket->user_id !== $author->id)  || ($author->id !== $request->user()->id)) {
+        if (($ticket->user_id !== $author->id) || ($author->id !== $request->user()->id)) {
             return $this->errorResponse(message: 'You are not authorized to delete this ticket');
         }
 

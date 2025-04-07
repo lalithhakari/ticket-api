@@ -35,11 +35,12 @@ class AuthService
             'email' => $email,
         ])->firstOrFail();
 
-        if (!Hash::check($password, $user->password)) {
+        if (! Hash::check($password, $user->password)) {
             throw new InvalidArgumentException('Invalid credentials');
         }
 
         $token = (new TokenService())->createToken(user: $user);
+
         return [$user, $token];
     }
 }

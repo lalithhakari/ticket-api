@@ -83,7 +83,6 @@ trait ApiResponse
     /**
      * These responses are used for API exceptions
      */
-
     public static function resourceNotFoundResponse(): JsonResponse
     {
         return response()->json([

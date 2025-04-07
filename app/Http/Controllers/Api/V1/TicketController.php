@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Api\V1;
 
-use App\Http\Controllers\Api\V1\ApiController;
 use App\Http\Filters\V1\TicketFilter;
 use App\Http\Requests\Api\V1\Tickets\ReplaceTicketRequest;
 use App\Http\Requests\Api\V1\Tickets\StoreTicketRequest;
@@ -51,6 +50,7 @@ class TicketController extends ApiController
         if ($this->includes('author')) {
             $ticket->load('author');
         }
+
         return new TicketResource($ticket);
     }
 

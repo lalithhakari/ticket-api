@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Api\V1;
 
-use App\Http\Controllers\Api\V1\ApiController;
 use App\Http\Filters\V1\AuthorFilter;
 use App\Http\Resources\V1\UserResource;
 use App\Models\User;

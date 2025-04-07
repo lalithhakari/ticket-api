@@ -17,7 +17,7 @@ class DatabaseSeeder extends Seeder
         User::factory()
             ->has(Ticket::factory()->count(20))
             ->state([
-                'email' => 'lalith@example.com'
+                'email' => 'lalith@example.com',
             ])
             ->create();
 
