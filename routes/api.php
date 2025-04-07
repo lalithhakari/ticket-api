@@ -1,3 +1,3 @@
 <?php
 
-require_once 'api_v1.php';
+require 'api_v1.php';

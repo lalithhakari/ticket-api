@@ -1,22 +1,38 @@
 <?php
 
+use App\Models\User;
+
 test('user can create a ticket', function () {
+    $user = User::factory()->create();
     $payload = [
-        'title' => fake()->sentence(),
-        'description' => fake()->paragraph(),
-        'status' => 'A',
+        'data' => [
+            'attributes' => [
+                'title' => fake()->sentence(),
+                'description' => fake()->paragraph(),
+                'status' => fake()->randomElement(['A', 'H', 'C', 'X']),
+            ],
+            'relationships' => [
+                'data' => [
+                    'author' => [
+                        'id' => $user->id,
+                    ],
+                ],
+            ],
+        ],
     ];
 
-    $response = $this->actingAsUser()->postJson(route('api.v1.tickets.store'), $payload);
+    $response = actingAsUser($user)->postJson(route('api.v1.tickets.store'), $payload);
 
     $response->assertStatus(200)
         ->assertJsonStructure([
-            'data'
+            'data' => [
+                'ticket',
+            ],
         ])
         ->assertJsonFragment([
             'status' => 'success',
-            'title' => $payload['title'],
-            'description' => $payload['description'],
-            'status' => $payload['status'],
+            'title' => $payload['data']['attributes']['title'],
+            'description' => $payload['data']['attributes']['description'],
+            'status' => $payload['data']['attributes']['status'],
         ]);
 });

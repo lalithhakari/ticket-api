@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\V1;
 use App\Http\Filters\V1\AuthorFilter;
 use App\Http\Resources\V1\UserResource;
 use App\Models\User;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class AuthorController extends ApiController
@@ -12,9 +13,14 @@ class AuthorController extends ApiController
     /**
      * Display a listing of the resource.
      */
-    public function index(AuthorFilter $filter)
+    public function index(AuthorFilter $filter): JsonResponse
     {
-        return UserResource::collection(User::filter($filter)->paginate());
+        $data['authors'] = UserResource::collection(User::filter($filter)->paginate());
+
+        return $this->successResponse(
+            message: 'Authors retrieved successfully',
+            data: $data,
+        );
     }
 
     /**
@@ -28,9 +34,14 @@ class AuthorController extends ApiController
     /**
      * Display the specified resource.
      */
-    public function show(User $author)
+    public function show(User $author): JsonResponse
     {
-        return new UserResource($author);
+        $data['author'] = new UserResource($author);
+
+        return $this->successResponse(
+            message: 'Author retrieved successfully',
+            data: $data,
+        );
     }
 
     /**

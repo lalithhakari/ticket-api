@@ -46,5 +46,6 @@ expect()->extend('toBeOne', function () {
 function actingAsUser($user = null)
 {
     $user = $user ?: User::factory()->create();
+
     return test()->actingAs($user, 'sanctum');
 }

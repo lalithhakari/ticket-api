@@ -2,9 +2,9 @@
 
 namespace App\Http\Requests\Api\V1\Tickets;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\Api\V1\ApiBaseRequest;
 
-class BaseTicketRequest extends FormRequest
+class BaseTicketRequest extends ApiBaseRequest
 {
     public function messages()
     {

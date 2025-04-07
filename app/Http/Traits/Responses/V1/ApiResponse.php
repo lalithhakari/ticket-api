@@ -70,16 +70,6 @@ trait ApiResponse
         return response()->json([], Response::HTTP_NO_CONTENT);
     }
 
-    public static function forbiddenResponse(): JsonResponse
-    {
-        return response()->json([
-            'status' => 'error',
-            'message' => 'FORBIDDEN',
-            'errors' => (object) [],
-            'data' => (object) [],
-        ], Response::HTTP_FORBIDDEN);
-    }
-
     /**
      * These responses are used for API exceptions
      */
@@ -103,11 +93,11 @@ trait ApiResponse
         ], Response::HTTP_METHOD_NOT_ALLOWED);
     }
 
-    public static function invalidRequestResponse(): JsonResponse
+    public static function internalServerErrorResponse(): JsonResponse
     {
         return response()->json([
             'status' => 'error',
-            'message' => 'Invalid request',
+            'message' => 'Unable to process your request',
             'errors' => (object) [],
             'data' => (object) [],
         ], Response::HTTP_INTERNAL_SERVER_ERROR);

@@ -22,12 +22,16 @@ class AuthController extends ApiController
                 password: $request->get('password'),
             );
 
-            return $this->loginResponse('Registered successfully', [
-                'user' => $user,
-                'token' => $token,
-            ], $token);
+            return $this->loginResponse(
+                message: 'Registered successfully',
+                data: [
+                    'user' => $user,
+                    'token' => $token,
+                ],
+                token: $token
+            );
         } catch (Throwable $th) {
-            return $this->invalidRequestResponse();
+            return $this->internalServerErrorResponse();
         }
     }
 
@@ -41,14 +45,18 @@ class AuthController extends ApiController
                 password: $request->get('password'),
             );
 
-            return $this->loginResponse('Logged in successfully', [
-                'user' => $user,
-                'token' => $token,
-            ], $token);
+            return $this->loginResponse(
+                message: 'Logged in successfully',
+                data: [
+                    'user' => $user,
+                    'token' => $token,
+                ],
+                token: $token
+            );
         } catch (InvalidArgumentException $e) {
             return $this->errorResponse($e->getMessage());
         } catch (Throwable $th) {
-            return $this->invalidRequestResponse();
+            return $this->internalServerErrorResponse();
         }
     }
 
@@ -59,7 +67,7 @@ class AuthController extends ApiController
 
             return $this->logoutResponse('Logged out successfully');
         } catch (Throwable $th) {
-            return $this->invalidRequestResponse();
+            return $this->internalServerErrorResponse();
         }
     }
 }
