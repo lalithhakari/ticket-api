@@ -2,7 +2,7 @@
 
 namespace App\Services\V1\Auth;
 
-use App\Mail\WelcomeMail;
+use App\Mail\V1\WelcomeMail;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
@@ -18,13 +18,9 @@ class AuthService
             'password' => $password,
         ]);
 
-        // TODO move to model observers
-        // $user->notificationSetting()->create();
-
         $token = (new TokenService)->createToken(user: $user);
 
-        // TODO move to job
-        // Mail::to($user)->send(new WelcomeMail($user));
+        Mail::to($user)->queue(new WelcomeMail($user));
 
         return [$user, $token];
     }

@@ -30,9 +30,12 @@ cd ticket-api
 cp .env.example .env
 sail up -d
 sail artisan migrate:fresh --seed
+sail artisan queue:work -v
 ```
 
-This will spin up your Docker containers and prepare the database with sample data.
+This will spin up your Docker containers and prepare the database with sample data. It also spins up the queue worker to listen for any jobs to process (it processes the WelcomeEmail queue job after registration API is hit).
+
+you can view the received email in the default mailer Mailpit's inbox via `http://localhost:8025`
 
 ### Test Suite Instructions
 
