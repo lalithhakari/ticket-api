@@ -15,24 +15,20 @@ class AuthController extends ApiController
 {
     public function register(UserRegisterRequest $request, AuthService $authService): JsonResponse
     {
-        try {
-            [$user, $token] = $authService->registerUser(
-                name: $request->get('name'),
-                email: $request->get('email'),
-                password: $request->get('password'),
-            );
+        [$user, $token] = $authService->registerUser(
+            name: $request->get('name'),
+            email: $request->get('email'),
+            password: $request->get('password'),
+        );
 
-            return $this->loginResponse(
-                message: 'Registered successfully',
-                data: [
-                    'user' => $user,
-                    'token' => $token,
-                ],
-                token: $token
-            );
-        } catch (Throwable $th) {
-            return $this->internalServerErrorResponse();
-        }
+        return $this->loginResponse(
+            message: 'Registered successfully',
+            data: [
+                'user' => $user,
+                'token' => $token,
+            ],
+            token: $token
+        );
     }
 
     public function login(
@@ -62,12 +58,8 @@ class AuthController extends ApiController
 
     public function logout(Request $request, TokenService $tokenService): JsonResponse
     {
-        try {
-            $tokenService->deleteCurrentToken($request->user());
+        $tokenService->deleteCurrentToken($request->user());
 
-            return $this->logoutResponse('Logged out successfully');
-        } catch (Throwable $th) {
-            return $this->internalServerErrorResponse();
-        }
+        return $this->logoutResponse('Logged out successfully');
     }
 }
