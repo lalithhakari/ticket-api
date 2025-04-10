@@ -21,3 +21,6 @@ Route::prefix('v1')->name('api.v1.')->group(function () {
         Route::put('authors/{author}/tickets/{ticket}', [AuthorTicketController::class, 'replace'])->name('authors.tickets.replace');
     });
 });
+
+
+// localhost/api/v1/tickets?filter[status]=X,C&filter[title]=*Eum*&filter[createdAt]=2025-04-05,2025-04-07&filter[createdAt]=2025-04-05&include=author&sort=-createdAt
